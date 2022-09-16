@@ -79,27 +79,29 @@ describe('AirportService', () => {
 
     const createdAirport: AirportEntity = await service.create(nAirport);
     expect(createdAirport).not.toBeNull();
-    console.log('id: ' + createdAirport.id + ', name: ' + createdAirport.name);
     const storedAirport: AirportEntity = await repository.findOne({
       where: {id: createdAirport.id },
     });
     expect(storedAirport).not.toBeNull();
     expect(storedAirport.name).toEqual(createdAirport.name);
+    expect(storedAirport.code).toEqual(createdAirport.code);
+    expect(storedAirport.country).toEqual(createdAirport.country);
+    expect(storedAirport.city).toEqual(createdAirport.city);
   });
 
-  it('update should modify a module', async () => {
+  it('update should modify an airport', async () => {
     const airport: AirportEntity = airportsList[0];
     airport.name = 'New airport name';
     const updatedAirport: AirportEntity = await service.update(airport.id, airport);
     expect(updatedAirport).not.toBeNull();
     const storedAirport: AirportEntity = await repository.findOne({
-      where: {id: `${airport.id}` },
+      where: {id: updatedAirport.id },
     });
     expect(storedAirport).not.toBeNull();
     expect(storedAirport.name).toEqual(airport.name);
   });
 
-  it('update should throw an exception for an invalid module', async () => {
+  it('update should throw an exception for an invalid airport', async () => {
     const airport: AirportEntity = airportsList[0];
     airport.name = 'New name';
     await expect(() => service.update('0', airport)).rejects.toHaveProperty(
@@ -108,16 +110,16 @@ describe('AirportService', () => {
     );
   });
 
-  it('delete should remove a module', async () => {
+  it('delete should remove an airport', async () => {
     const airport: AirportEntity = airportsList[0];
     await service.delete(airport.id);
     const deletedAirport: AirportEntity = await repository.findOne({
-      where: { id: `${airport.id}` },
+      where: {id: airport.id },
     });
     expect(deletedAirport).toBeNull();
   });
 
-  it('delete should throw an exception for an invalid module', async () => {
+  it('delete should throw an exception for an invalid airport', async () => {
     await expect(() => service.delete('0')).rejects.toHaveProperty(
       'message',
       'The airport with the given id was not found',
