@@ -7,6 +7,7 @@ import { AirlineModule } from './airline/airline.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AirportEntity } from './airport/airport.entity';
 import { AirlineEntity } from './airline/airline.entity';
+import { AirlineAirportModule } from './airline-airport/airline-airport.module';
 
 @Module({
   imports: [AirportModule, AirlineModule, TypeOrmModule.forRoot({
@@ -20,7 +21,7 @@ import { AirlineEntity } from './airline/airline.entity';
     dropSchema: true,
     synchronize: true,
     keepConnectionAlive: true
-  })],
+  }), AirlineAirportModule],
   controllers: [AppController],
   providers: [AppService],
 })
