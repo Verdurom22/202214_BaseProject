@@ -42,7 +42,7 @@ export class AirportService {
             throw new BusinessLogicException(
                 'The airport with the given id was not found', BusinessError.NOT_FOUND);
         airport.id = id;
-        return await this.airportRepository.save(airport);
+        return await this.airportRepository.save({...persistedAirport, ...airport});
     }
 
     async delete(id: string) {
