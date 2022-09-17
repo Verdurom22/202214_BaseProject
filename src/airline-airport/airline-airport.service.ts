@@ -65,7 +65,7 @@ export class AirlineAirportService {
         if (!airlineAirport)
             throw new BusinessLogicException(
                 "The airport with the given id is not associated with the airline",
-                BusinessError.NOT_FOUND
+                BusinessError.PRECONDITION_FAILED
             );
         return airlineAirport;
     }
@@ -109,7 +109,7 @@ export class AirlineAirportService {
         if (!airlineAirport)
             throw new BusinessLogicException(
                 "The airport with the given id is not associated with the airline",
-                BusinessError.NOT_FOUND
+                BusinessError.PRECONDITION_FAILED
             );
         airline.airports = airline.airports.filter(e => e.id !== airportId);
         await this.airlineRepository.save(airline);
