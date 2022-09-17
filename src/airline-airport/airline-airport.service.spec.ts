@@ -7,7 +7,6 @@ import { AirlineAirportService } from './airline-airport.service';
 import { faker } from '@faker-js/faker';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { TypeOrmTestingConfig } from '../shared/testing-utils/typeorm-testing-config';
-import exp from 'constants';
 
 describe('AirlineAirportService', () => {
   let service: AirlineAirportService;

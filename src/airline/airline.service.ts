@@ -36,12 +36,11 @@ export class AirlineService {
     async update(id: string, airline: AirlineEntity): Promise<AirlineEntity> {
         const persistedAirline: AirlineEntity = await this.airlineRepository.findOne({
             where: {id},
-            relations: ['airports'],
         });
         if (!persistedAirline)
             throw new BusinessLogicException(
                 'The airline with the given id was not found', BusinessError.NOT_FOUND);
-        return await this.airlineRepository.save(airline);
+        return await this.airlineRepository.save({...persistedAirline, ...airline});
     }
 
     async delete(id: string) {
